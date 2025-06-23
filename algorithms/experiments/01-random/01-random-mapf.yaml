@@ -1,0 +1,33 @@
+environment:
+  name: Environment
+  with_animation: False
+  on_target: 'nothing'
+  max_episode_steps: 128
+  observation_type: 'MAPF'
+  collision_system: 'soft'
+  #obs_radius: 4
+  seed: 0
+  num_agents:
+    grid_search: [24,32,40]
+  map_name:
+    grid_search: [
+        validation-random-seed-000, validation-random-seed-001, validation-random-seed-002, 
+        validation-random-seed-003, validation-random-seed-004, validation-random-seed-005, 
+        validation-random-seed-006, validation-random-seed-007, validation-random-seed-008, 
+        validation-random-seed-009, validation-random-seed-010]
+algorithms:
+  LaCAM:
+    name: LaCAM
+  #MAMBA:
+  #  name: Follower
+  #SCRIMP:
+  #  name: SCRIMP
+  #DCC:  # requires obs_radius: 4 in environment
+  #  name: DCC
+
+
+results_views:
+  TabularView1:
+    type: tabular
+    drop_keys: [ seed, map_name ]
+    print_results: True

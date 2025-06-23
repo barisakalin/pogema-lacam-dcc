@@ -1,0 +1,104 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/collision_table.hpp
+graph.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+instance.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/instance.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/dist_table.hpp
+graph.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+instance.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/instance.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/instance.hpp
+random
+-
+graph.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/pibt.hpp
+dist_table.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/dist_table.hpp
+graph.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+instance.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/instance.hpp
+scatter.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/scatter.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/scatter.hpp
+collision_table.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/collision_table.hpp
+dist_table.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/dist_table.hpp
+graph.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/graph.hpp
+utils.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/utils.hpp
+algorithm
+-
+array
+-
+chrono
+-
+climits
+-
+fstream
+-
+future
+-
+iomanip
+-
+iostream
+-
+list
+-
+map
+-
+numeric
+-
+queue
+-
+random
+-
+regex
+-
+set
+-
+stack
+-
+string
+-
+unordered_map
+-
+vector
+-
+
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/src/pibt.cpp
+../include/pibt.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/pibt.hpp
+../include/collision_table.hpp
+/mnt/c/Users/Oguzhan Karaarslan/Desktop/repos/pogema-lacam-dcc/algorithms/lacam/lacam3/include/collision_table.hpp
+
