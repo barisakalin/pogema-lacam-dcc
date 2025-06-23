@@ -1,21 +1,5 @@
 #include "../include/pibt.hpp"
-#include "../include/collision_table.hpp"  // Include for congestion info
-/*
-PIBT::PIBT(const Instance *_ins, DistTable *_D, int seed, bool _flg_swap,
-           Scatter *_scatter)
-    : ins(_ins),
-      MT(std::mt19937(seed)),
-      N(ins->N),
-      V_size(ins->G->size()),
-      D(_D),
-      NO_AGENT(N),
-      occupied_now(V_size, NO_AGENT),
-      occupied_next(V_size, NO_AGENT),
-      C_next(N, std::array<Vertex *, 5>()),
-      tie_breakers(V_size, 0),
-      flg_swap(_flg_swap),
-      scatter(_scatter){}
-*/
+
 PIBT::PIBT(const Instance *_ins, DistTable *_D, int seed, bool _flg_swap,
            Scatter *_scatter)
     : ins(_ins),
@@ -34,20 +18,24 @@ PIBT::PIBT(const Instance *_ins, DistTable *_D, int seed, bool _flg_swap,
 }
 
 PIBT::~PIBT() {}
-//PIBT::~PIBT(){}
-
 
 bool PIBT::set_new_config(const Config &Q_from, Config &Q_to,
                           const std::vector<int> &order)
 {
   bool success = true;
+  // setup cache & constraints check
   for (auto i = 0; i < N; ++i) {
+    // set occupied now
     occupied_now[Q_from[i]->id] = i;
+
+    // set occupied next
     if (Q_to[i] != nullptr) {
+      // vertex collision
       if (occupied_next[Q_to[i]->id] != NO_AGENT) {
         success = false;
         break;
       }
+      // swap collision
       auto j = occupied_now[Q_to[i]->id];
       if (j != NO_AGENT && j != i && Q_to[j] == Q_from[i]) {
         success = false;
@@ -66,6 +54,7 @@ bool PIBT::set_new_config(const Config &Q_from, Config &Q_to,
     }
   }
 
+  // cleanup
   for (auto i = 0; i < N; ++i) {
     occupied_now[Q_from[i]->id] = NO_AGENT;
     if (Q_to[i] != nullptr) occupied_next[Q_to[i]->id] = NO_AGENT;
@@ -74,8 +63,6 @@ bool PIBT::set_new_config(const Config &Q_from, Config &Q_to,
   return success;
 }
 
-//old function
-/*
 bool PIBT::funcPIBT(const int i, const Config &Q_from, Config &Q_to)
 {
   const auto K = Q_from[i]->neighbor.size();
@@ -158,79 +145,6 @@ bool PIBT::funcPIBT(const int i, const Config &Q_from, Config &Q_to)
   Q_to[i] = Q_from[i];
   return false;
 }
-*/
-
-bool PIBT::funcPIBT(const int i, const Config &Q_from, Config &Q_to)
-{
-  const auto K = Q_from[i]->neighbor.size();
-  Vertex *prioritized_vertex = nullptr;
-  if (scatter != nullptr) {
-    auto itr_s = scatter->scatter_data[i].find(Q_from[i]->id);
-    if (itr_s != scatter->scatter_data[i].end()) {
-      prioritized_vertex = itr_s->second;
-    }
-  }
-
-  for (size_t k = 0; k < K; ++k) {
-    auto u = Q_from[i]->neighbor[k];
-    C_next[i][k] = u;
-    tie_breakers[u->id] = get_random_float(MT);
-  }
-  C_next[i][K] = Q_from[i];
-
-  constexpr float alpha = 0.5f;
-  constexpr int t_window = 1;
-
-  std::sort(C_next[i].begin(), C_next[i].begin() + K + 1,
-            [&](Vertex *const v, Vertex *const u) {
-              if (v == prioritized_vertex) return true;
-              if (u == prioritized_vertex) return false;
-
-              auto get_congestion = [&](Vertex *w) {
-                float c = 0;
-                for (int dt = 0; dt <= t_window; ++dt) {
-                  if (w->id < scatter->CT.body.size() && dt < scatter->CT.body[w->id].size()) {
-                    c += scatter->CT.body[w->id][dt].size();
-                  }
-                }
-                return c / (t_window + 1);
-              };
-
-              float score_v = D->get(i, v) + alpha * get_congestion(v);
-              float score_u = D->get(i, u) + alpha * get_congestion(u);
-              return score_v < score_u;
-            });
-
-  auto swap_agent = NO_AGENT;
-  if (flg_swap) {
-    swap_agent = is_swap_required_and_possible(i, Q_from, Q_to);
-    if (swap_agent != NO_AGENT) std::reverse(C_next[i].begin(), C_next[i].begin() + K + 1);
-  }
-
-  auto swap_operation = [&]() {
-    if (swap_agent != NO_AGENT && Q_to[swap_agent] == nullptr && occupied_next[Q_from[i]->id] == NO_AGENT) {
-      occupied_next[Q_from[i]->id] = swap_agent;
-      Q_to[swap_agent] = Q_from[i];
-    }
-  };
-
-  for (size_t k = 0; k < K + 1; ++k) {
-    auto u = C_next[i][k];
-    if (occupied_next[u->id] != NO_AGENT) continue;
-    const auto j = occupied_now[u->id];
-    if (j != NO_AGENT && Q_to[j] == Q_from[i]) continue;
-    occupied_next[u->id] = i;
-    Q_to[i] = u;
-    if (j != NO_AGENT && u != Q_from[i] && Q_to[j] == nullptr && !funcPIBT(j, Q_from, Q_to)) continue;
-    if (flg_swap && k == 0) swap_operation();
-    return true;
-  }
-
-  occupied_next[Q_from[i]->id] = i;
-  Q_to[i] = Q_from[i];
-  return false;
-}
-
 
 int PIBT::is_swap_required_and_possible(const int i, const Config &Q_from,
                                         Config &Q_to)

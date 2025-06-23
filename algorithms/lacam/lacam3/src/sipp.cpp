@@ -4,16 +4,6 @@ SITable::SITable(CollisionTable *_CT) : CT(_CT) {}
 
 SITable::~SITable() {}
 
-float get_local_density(Vertex *v, CollisionTable *CT, int t_window = 3) {
-  float density = 0;
-  for (int t = 0; t <= t_window; ++t) {
-    if (v->id < CT->body.size() && t < CT->body[v->id].size()) {
-      density += CT->body[v->id][t].size();
-    }
-  }
-  return density / (t_window + 1);
-}
-
 SIs &SITable::get(Vertex *v)
 {
   auto &b_v = body[v->id];
@@ -152,9 +142,7 @@ Path sipp(const int i, Vertex *s_i, Vertex *g_i, DistTable *D,
         if (t_earliest >= INT_MAX) continue;
 
         // valid neighbor
-        //auto g_val = n->g + (n->v != g_i ? t_earliest - n->t : 1);
-        float density_penalty = get_local_density(u, CT);
-        auto g_val = n->g + (n->v != g_i ? t_earliest - n->t : 1) + density_penalty*10;
+        auto g_val = n->g + (n->v != g_i ? t_earliest - n->t : 1);
         auto f_val = g_val + D->get(i, u);
         auto n_new = new SINode(++node_id, si, u, t_earliest, g_val, f_val, n);
 
